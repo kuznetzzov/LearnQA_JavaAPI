@@ -32,7 +32,7 @@ public class Ex8Test {
 
         TokenDtoNotReady dtoNotReady = notReadyDto(response2);
 
-        int seconds = Integer.parseInt(tokenDto.getSeconds()) * 1000;
+        int seconds = tokenDto.getSeconds() * 1000;
 
         if (dtoNotReady.getStatus().equals("Job is NOT ready")){
             try {
@@ -72,7 +72,7 @@ public class Ex8Test {
     @Setter
     public static class TokenDtoResponse {
         private String token;
-        private String seconds;
+        private Integer seconds;
     }
 
     @Getter
