@@ -32,16 +32,24 @@ public class Ex9Test {
 
             Response response = RestAssured
                     .given()
-                    .params(params)
+                    .body(params)
                     .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
                     .then()
                     .extract()
                     .response();
 
+            String responseCookie = response.getCookie("auth_cookie");
+
+            Map<String, String> cookies = new HashMap<>();
+            if (responseCookie != null) {
+                cookies.put("auth_cookie", responseCookie);
+            }
+
             Response response2 = RestAssured
                     .given()
-                    .params(params)
-                    .cookie("auth_cookie", response.getCookies().get("auth_cookie"))
+                    .body(params)
+                    .cookies(cookies)
+                    .when()
                     .post("https://playground.learnqa.ru/ajax/api/check_auth_cookie")
                     .then()
                     .extract()
