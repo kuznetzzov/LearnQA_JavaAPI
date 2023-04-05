@@ -23,7 +23,7 @@ public class Ex9Test {
     @Test
     void passwordSelection() throws IOException {
 
-        ArrayList<String> pws = passwords();
+        ArrayList<String> pws = nonRecurringPasswords(passwords());
         Map<String, String> params = new HashMap<>();
 
         for (String pw : pws) {
@@ -87,4 +87,21 @@ public class Ex9Test {
         }
         return pws;
     }
+
+    public ArrayList<String> nonRecurringPasswords(ArrayList<String> passwords){
+        ArrayList<String> pws = new ArrayList<>();
+
+        for (String password : passwords) {
+            if(!pws.contains(password)){
+                pws.add(password);
+            }
+        }
+        System.out.println("Список неповторяющихся паролей из таблицы Top 25 most common passwords by year according to SplashData:  " + pws);
+        return pws;
+    }
+
+//    @Test
+//    void checkArray() throws IOException {
+//        nonRecurringPasswords(passwords());
+//    }
 }
