@@ -25,18 +25,16 @@ public class Ex9Test {
 
         ArrayList<String> pws = nonRecurringPasswords(passwords());
         Map<String, String> params = new HashMap<>();
+        params.put("login", "super_admin");
 
         for (String pw : pws) {
-            params.put("login", "super_admin");
             params.put("password ", pw);
 
             Response response = RestAssured
                     .given()
                     .body(params)
                     .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
-                    .then()
-                    .extract()
-                    .response();
+                    .andReturn();
 
             String responseCookie = response.getCookie("auth_cookie");
 
@@ -51,9 +49,7 @@ public class Ex9Test {
                     .cookies(cookies)
                     .when()
                     .post("https://playground.learnqa.ru/ajax/api/check_auth_cookie")
-                    .then()
-                    .extract()
-                    .response();
+                    .andReturn();
 
             XmlPath htmlPath = new XmlPath(HTML, response2.getBody().asString());
 
