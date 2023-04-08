@@ -1,14 +1,11 @@
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
-import lombok.Getter;
-import lombok.Setter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -28,7 +25,7 @@ public class Ex9Test {
         params.put("login", "super_admin");
 
         for (String pw : pws) {
-            params.put("password ", pw);
+            params.put("password", pw);
 
             Response response = RestAssured
                     .given()
@@ -39,9 +36,10 @@ public class Ex9Test {
             String responseCookie = response.getCookie("auth_cookie");
 
             Map<String, String> cookies = new HashMap<>();
-            if (responseCookie != null) {
-                cookies.put("auth_cookie", responseCookie);
-            }
+
+            Assertions.assertNotEquals(responseCookie, null, "Cookie should not be NULL. Current password: " + pw);
+
+            cookies.put("auth_cookie", responseCookie);
 
             Response response2 = RestAssured
                     .given()
@@ -51,10 +49,10 @@ public class Ex9Test {
                     .post("https://playground.learnqa.ru/ajax/api/check_auth_cookie")
                     .andReturn();
 
-            XmlPath htmlPath = new XmlPath(HTML, response2.getBody().asString());
-
-            if (!htmlPath.getString("html.body").equals("You are NOT authorized")) {
-                System.out.println("password = " + pw + ", message - " + htmlPath.getString("html.body"));
+            System.out.println(response2.asString());
+            if (!response2.asString().equals("You are NOT authorized")) {
+                System.out.println("password = " + pw + ", message - " + response2.asString());
+                break;
             }
         }
     }
@@ -81,6 +79,9 @@ public class Ex9Test {
             pws.add(cols.get(8).text());
             pws.add(cols.get(9).text());
         }
+
+        System.out.println("Список повторяющихся паролей из таблицы Top 25 most common passwords by year according to SplashData:  " + pws);
+
         return pws;
     }
 
