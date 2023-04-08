@@ -1,5 +1,4 @@
 import io.restassured.RestAssured;
-import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static io.restassured.path.xml.XmlPath.CompatibilityMode.HTML;
 
 public class Ex9Test {
 
