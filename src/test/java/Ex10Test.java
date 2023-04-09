@@ -9,7 +9,7 @@ public class Ex10Test {
         Assertions.assertTrue(checkLength(txt), "Во фразе: " + txt + " - меньше 15 символов");
     }
 
-    Boolean checkLength(String txt){
+    public Boolean checkLength(String txt){
         boolean trueTxt = false;
         if (txt.length() > 15){
             trueTxt = true;
