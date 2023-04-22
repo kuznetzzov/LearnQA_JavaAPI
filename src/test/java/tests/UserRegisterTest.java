@@ -104,9 +104,6 @@ public class UserRegisterTest {
 
         Response response = apiCoreRequests.createUser(userData);
 
-        System.out.println(response.getStatusCode());
-        System.out.println(response.asString());
-
         Assertions.assertEquals(400, response.getStatusCode(),
                 "Код ответа сервера не соотвествует ожидаемому" + response.getStatusCode());
         Assertions.assertEquals("The value of 'firstName' field is too long", response.asString(),
