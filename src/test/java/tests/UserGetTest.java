@@ -1,22 +1,30 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("User cases")
+@Feature("Select")
 public class UserGetTest {
 
     ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
+    @Description("Авторизация по заданным параметрам, получение заголовков и проверка username")
+    @DisplayName("Проверка авторизации по ID")
     public void checkAuthByOneAndGetTwo() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");

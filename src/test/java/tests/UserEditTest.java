@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import org.junit.jupiter.api.Assertions;
@@ -9,12 +12,15 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("User cases")
+@Feature("Edit")
 public class UserEditTest {
 
     ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
-    @DisplayName("Попытаемся изменить данные пользователя, будучи неавторизованными")
+    @Description("Попытаемся изменить данные пользователя, будучи неавторизованными")
+    @DisplayName("Редактирование без авторизации")
     public void checkEditWithoutAuth() {
         // Генерация данных для создания пользователя
         Map<String, String> userData = apiCoreRequests.userDataGenerator();
@@ -33,7 +39,8 @@ public class UserEditTest {
     }
 
     @Test
-    @DisplayName("Попытаемся изменить данные пользователя, будучи авторизованными другим пользователем")
+    @Description("Попытаемся изменить данные пользователя, будучи авторизованными другим пользователем")
+    @DisplayName("Редактирование под другой авторизацией")
     public void checkEditWithAnotherUser() {
         // Генерация данных для создания пользователя 1
         Map<String, String> userData1 = apiCoreRequests.userDataGenerator();
@@ -90,7 +97,8 @@ public class UserEditTest {
     }
 
     @Test
-    @DisplayName("Попытаемся изменить email пользователя, будучи авторизованными тем же пользователем, на новый email без символа @")
+    @Description("Попытаемся изменить email пользователя, будучи авторизованными тем же пользователем, на новый email без символа @")
+    @DisplayName("Редактирование не корректного email")
     public void checkEditEmailWithoutDogSign() {
         // Генерация данных для создания пользователя
         Map<String, String> userData = apiCoreRequests.userDataGenerator();
@@ -119,7 +127,8 @@ public class UserEditTest {
     }
 
     @Test
-    @DisplayName("Попытаемся изменить firstName пользователя, будучи авторизованными тем же пользователем, на очень короткое значение в один символ")
+    @Description("Попытаемся изменить firstName пользователя, будучи авторизованными тем же пользователем, на очень короткое значение в один символ")
+    @DisplayName("Редактирование короткого firstName")
     public void checkEditWithShortFirstName() {
         // Генерация данных для создания пользователя
         Map<String, String> userData = apiCoreRequests.userDataGenerator();

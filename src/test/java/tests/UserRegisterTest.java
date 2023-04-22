@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import org.junit.jupiter.api.Assertions;
@@ -11,11 +14,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("Authorisation cases")
+@Feature("Negative user create")
 public class UserRegisterTest {
     ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
-    @DisplayName("Создание пользователя с некорректным email - без символа @")
+    @Description("Проверка создания пользователя с некорректным email - без символа @")
+    @DisplayName("Email вне формата")
     public void checkCreateUserWithIncorrectEmail() {
         Map<String, String> userData = new HashMap<>();
         userData.put("email", "nosobakagmail.com");
@@ -40,7 +46,8 @@ public class UserRegisterTest {
             "email, max@gmail.com, password, 123, username, maxKuznetsov, firstName, , lastName, kuznetsov",
             "email, max@gmail.com, password, 123, username, maxKuznetsov, firstName, max, lastName, "
     })
-    @DisplayName("Создание пользователя без указания одного из полей")
+    @Description("Группа кейсов с проверкой отсутствия одного из основных параметра пользователя в каждом запросе")
+    @DisplayName("Отсутствие параметра")
     public void checkCreateUserWithoutOneFieldValue(String key, String value,
                                                     String key2, String value2,
                                                     String key3, String value3,
@@ -65,7 +72,8 @@ public class UserRegisterTest {
     @CsvSource({
             "email, max@gmail.com, password, 123, username, maxKuznetsov, firstName, a, lastName, kuznetsov"
     })
-    @DisplayName("Создание пользователя с очень коротким именем в один символ")
+    @Description("Создание пользователя с очень коротким именем в один символ")
+    @DisplayName("Короткое имя пользователя")
     public void checkCreateUserWithShortFirstName(String key, String value,
                                                   String key2, String value2,
                                                   String key3, String value3,
@@ -87,7 +95,8 @@ public class UserRegisterTest {
     }
 
     @Test
-    @DisplayName("Создание пользователя с очень длинным именем - длиннее 250 символов")
+    @Description("Создание пользователя с очень длинным именем - длиннее 250 символов")
+    @DisplayName("Длинное имя пользователя")
     public void checkCreateUserWithLongFirstName() {
 
         String firstName = "FirstNamefffffffffffffffffffffffffffffffffffffffffffffffffffff" +
