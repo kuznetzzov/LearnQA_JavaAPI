@@ -117,6 +117,6 @@ public class UserDeleteTest {
 
         System.out.println(checkedId);
 
-        Assertions.assertNotNull(checkedId, "Пользователь удалился id = " + assertId + " удалился без авторизации");
+        Assertions.assertNotNull(checkedId, "Пользователь id = " + assertId + " удалился без авторизации");
     }
 }
