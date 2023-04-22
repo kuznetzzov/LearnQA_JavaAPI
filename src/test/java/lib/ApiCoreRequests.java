@@ -108,4 +108,14 @@ public class ApiCoreRequests {
         }
         return isEdit;
     }
+
+    @Step("Удаление пользователя")
+    public Response responseDelete(Map<String, String> userData, String header, String cookie, String id) {
+        return given()
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .body(userData)
+                .delete("https://playground.learnqa.ru/api/user/" + id)
+                .andReturn();
+    }
 }
